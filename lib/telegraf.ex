@@ -1,18 +1,29 @@
 defmodule Telegraf do
-  @moduledoc """
-  Documentation for `Telegraf`.
-  """
+  use Supervisor
 
-  @doc """
-  Hello world.
+  def start_link(opts) do
+    name = Keyword.fetch!(opts, :name)
+    Supervisor.start_link(__MODULE__, opts, name: name)
+  end
 
-  ## Examples
+  @impl true
+  def init(opts) do
+    name = Keyword.fetch!(opts, :name)
+    transport = Keyword.fetch!(opts, :transport)
+    serializer = Keyword.get(opts, :serializer, Telegraf.Serializer.LineProtocol)
 
-      iex> Telegraf.hello()
-      :world
+    :persistent_term.put({__MODULE__, name}, {transport, serializer})
 
-  """
-  def hello do
-    :world
+    opts
+    |> transport.children()
+    |> Supervisor.init(strategy: :one_for_one)
+  end
+
+  def send(name, metric_or_metrics, opts \\ []) do
+    {transport, serializer} = :persistent_term.get({__MODULE__, name})
+
+    message = metric_or_metrics |> List.wrap() |> serializer.serialize()
+
+    transport.send(name, message, opts)
   end
 end
