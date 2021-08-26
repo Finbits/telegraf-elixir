@@ -3,8 +3,8 @@ defmodule TelegrafTest do
   doctest Telegraf
 
   describe "send/3" do
-    @tag :tmp_dir
-    test "success", %{tmp_dir: tmp_dir} do
+    test "success", context do
+      tmp_dir = create_tmp_dir!(context)
       socket_path = Path.join(tmp_dir, "telegraf.sock")
 
       server_name = Module.concat(__MODULE__, Server)
@@ -42,5 +42,21 @@ defmodule TelegrafTest do
       assert message ==
                "weather,location=us-midwest,season=summer temperature=82i 1465839830100400200\n"
     end
+  end
+
+  defp create_tmp_dir!(context) do
+    module = escape_path(inspect(context.module))
+    name = escape_path(to_string(context.test))
+    path = ["tmp", module, name] |> Path.join() |> Path.expand()
+    File.rm_rf!(path)
+    File.mkdir_p!(path)
+
+    path
+  end
+
+  @escape Enum.map(' [~#%&*{}\\:<>?/+|"]', &<<&1::utf8>>)
+
+  defp escape_path(path) do
+    String.replace(path, @escape, "-")
   end
 end
