@@ -18,7 +18,7 @@ Pull requests are the greatest contributions, so be sure they are focused in sco
 And submit your pull request after making sure that all tests pass and they are covering 100% of the code.
 
 - [Fork][fork] it!
-- Clone your fork: `git clone https://github.com/<your-username>/telegraf`
+- Clone your fork: `git clone https://github.com/<your-username>/telegraf-elixir`
 - Navigate to the newly cloned directory: `cd telegraf`
 - Create a new branch for the new feature: `git checkout -b my-new-feature`
 - Install the tools necessary for development: `mix deps.get`
@@ -36,8 +36,8 @@ And submit your pull request after making sure that all tests pass and they are 
 5. Publish to hex `mix hex.publish`
 6. Create a [new release][new-release]
 
-[fork]: https://github.com/finbits/telegraf/fork
-[code-of-conduct]: https://github.com/finbits/telegraf/blob/main/CODE_OF_CONDUCT.md
-[issue]: https://github.com/finbits/telegraf/issues
-[new-issue]: https://github.com/finbits/telegraf/issues/new
-[new-release]: https://github.com/finbits/telegraf/releases/new?body=Checkout+the+%5Bchangelog%5D%28https%3A%2F%2Fgithub.com%2Ffinbits%2Ftelegraf%2Fblob%2Fmain%2FCHANGELOG.md%29
+[fork]: https://github.com/finbits/telegraf-elixir/fork
+[code-of-conduct]: https://github.com/finbits/telegraf-elixir/blob/main/CODE_OF_CONDUCT.md
+[issue]: https://github.com/finbits/telegraf-elixir/issues
+[new-issue]: https://github.com/finbits/telegraf-elixir/issues/new
+[new-release]: https://github.com/finbits/telegraf-elixir/releases/new?body=Checkout+the+%5Bchangelog%5D%28https%3A%2F%2Fgithub.com%2Ffinbits%2Ftelegraf-elixir%2Fblob%2Fmain%2FCHANGELOG.md%29
