@@ -1,4 +1,8 @@
 defmodule Telegraf.Transport.Dummy do
+  @moduledoc """
+  TODO
+  """
+
   @behaviour Telegraf.Transport
 
   @impl Telegraf.Transport

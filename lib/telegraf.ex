@@ -1,12 +1,16 @@
 defmodule Telegraf do
   use Supervisor
 
+  @moduledoc """
+  TODO
+  """
+
   def start_link(opts) do
     name = Keyword.fetch!(opts, :name)
     Supervisor.start_link(__MODULE__, opts, name: name)
   end
 
-  @impl true
+  @impl Supervisor
   def init(opts) do
     name = Keyword.fetch!(opts, :name)
     transport = Keyword.fetch!(opts, :transport)

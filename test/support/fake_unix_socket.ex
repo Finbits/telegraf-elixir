@@ -5,7 +5,7 @@ defmodule Telegraf.FakeUnixSocket do
     Supervisor.start_link(__MODULE__, opts)
   end
 
-  @impl true
+  @impl Supervisor
   def init(opts) do
     name = Keyword.fetch!(opts, :name)
     socket_path = Keyword.fetch!(opts, :socket_path)
@@ -51,9 +51,7 @@ defmodule Telegraf.FakeUnixSocket do
   end
 
   def serve(name, socket, on_message) do
-    socket
-    |> :gen_tcp.recv(0)
-    |> case do
+    case :gen_tcp.recv(socket, 0) do
       {:ok, message} ->
         on_message.(message)
 

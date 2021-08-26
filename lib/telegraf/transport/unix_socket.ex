@@ -1,4 +1,7 @@
 defmodule Telegraf.Transport.UnixSocket do
+  @moduledoc """
+  TODO
+  """
   @behaviour NimblePool
   @behaviour Telegraf.Transport
 

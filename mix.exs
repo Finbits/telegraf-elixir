@@ -6,7 +6,6 @@ defmodule Telegraf.MixProject do
   @description "Send metrics to telegraf"
   @repo_url "https://github.com/Finbits/telegraf-elixir"
 
-
   def project do
     [
       app: :telegraf,
@@ -36,6 +35,8 @@ defmodule Telegraf.MixProject do
       {:nimble_pool, "~> 0.2"},
 
       # dev/test
+      {:credo_naming, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.14", only: :test}
     ]
   end
