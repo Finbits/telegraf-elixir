@@ -66,7 +66,7 @@ defmodule Telegraf.Serializer.LineProtocol do
   end
 
   defp escape(value) do
-    String.replace(value, ~r/[\s,=]/, &~s/\\#{&1}/)
+    Regex.replace(~r/[\s,=]/, value, &~s/\\#{&1}/)
   end
 
   defp reject_nils(map) when is_map(map) do
