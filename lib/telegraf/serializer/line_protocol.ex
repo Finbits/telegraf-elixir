@@ -26,7 +26,7 @@ defmodule Telegraf.Serializer.LineProtocol do
   end
 
   defp encode_name(name) when is_binary(name) do
-    String.replace(name, ~r/[\s,]/, &~s/\\#{&1}/)
+    Regex.replace(~r/[\s,]/, name, &~s/\\#{&1}/)
   end
 
   defp encode_tag_set([]), do: []
