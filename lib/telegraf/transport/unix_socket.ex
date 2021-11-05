@@ -1,15 +1,56 @@
 defmodule Telegraf.Transport.UnixSocket do
+  @children_opts_definition [
+    socket_path: [
+      type: :string,
+      doc: "Path to the unix socket.",
+      default: "/tmp/telegraf.sock"
+    ],
+    pool_size: [
+      type: :pos_integer,
+      doc: "The size of the pool tcp sockets. Defaults to `System.schedulers_online()`."
+    ]
+  ]
+
   @moduledoc """
-  TODO
+  Send events to telegraf via a Unix Domain Socket.
+  It uses `NimblePool` to create a pool of open tcp sockets connected
+  to the `socket_path`.
+
+  It expects the telegraf daemon to have the [Socket Listener Input Plugin](https://github.com/influxdata/telegraf/blob/release-1.18/plugins/inputs/socket_listener/README.md)
+  configured to listen for messages.
+
+  ```
+  # telegraf.conf
+
+  [[inputs.socket_listener]]
+    service_address = "/tmp/telegraf.sock"
+  ```
+
+  ## Usage
+
+  Add to your supervision tree:
+
+      {Telegraf, name: MyTelegraf, transport: #{inspect(__MODULE__)}}
+
+  With custom options:
+
+      {Telegraf,
+       name: MyTelegraf,
+       transport: #{inspect(__MODULE__)},
+       transport_options: [socket_path: "/tmp/cool.sock"]}
+
+  ## Supported options
+
+  #{NimbleOptions.docs(@children_opts_definition)}
   """
   @behaviour NimblePool
   @behaviour Telegraf.Transport
 
   @impl Telegraf.Transport
-  def children(opts) do
-    name = Keyword.fetch!(opts, :name)
-    socket_path = Keyword.get(opts, :socket_path, "/tmp/telegraf.sock")
-    pool_size = Keyword.get(opts, :pool_size, System.schedulers_online())
+  def children(name, opts) do
+    opts = validate_children_options!(opts)
+    socket_path = Keyword.fetch!(opts, :socket_path)
+    pool_size = Keyword.fetch!(opts, :pool_size)
 
     [
       {NimblePool,
@@ -68,4 +109,17 @@ defmodule Telegraf.Transport.UnixSocket do
 
   # credo:disable-for-next-line Credo.Check.Warning.UnsafeToAtom
   defp pool_name(name), do: Module.concat(name, Pool)
+
+  defp validate_children_options!(opts) do
+    opts = Keyword.put_new(opts, :pool_size, System.schedulers_online())
+
+    case NimbleOptions.validate(opts, @children_opts_definition) do
+      {:ok, opts} ->
+        opts
+
+      {:error, %NimbleOptions.ValidationError{message: message}} ->
+        raise ArgumentError,
+              "invalid configuration given to #{inspect(__MODULE__)}.children/2, " <> message
+    end
+  end
 end

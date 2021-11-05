@@ -2,6 +2,38 @@ defmodule TelegrafTest do
   use ExUnit.Case
   doctest Telegraf
 
+  describe "start_link/1" do
+    test "missing name" do
+      message =
+        "invalid configuration given to Telegraf.start_link/1," <>
+          " required option :name not found, received options: []"
+
+      assert_raise ArgumentError, message, fn ->
+        Telegraf.start_link([])
+      end
+    end
+
+    test "invalid serializer" do
+      message =
+        "invalid configuration given to Telegraf.start_link/1," <>
+          " expected :serializer to be an atom, got: \"invalid\""
+
+      assert_raise ArgumentError, message, fn ->
+        Telegraf.start_link(name: MyTelegraf, serializer: "invalid")
+      end
+    end
+
+    test "invalid transport" do
+      message =
+        "invalid configuration given to Telegraf.start_link/1," <>
+          " expected :transport to be an atom, got: \"invalid\""
+
+      assert_raise ArgumentError, message, fn ->
+        Telegraf.start_link(name: MyTelegraf, transport: "invalid")
+      end
+    end
+  end
+
   describe "send/3" do
     test "success", context do
       tmp_dir = create_tmp_dir!(context)
@@ -22,10 +54,12 @@ defmodule TelegrafTest do
 
       start_supervised!(
         {Telegraf,
+         name: client_name,
          transport: Telegraf.Transport.UnixSocket,
-         socket_path: socket_path,
-         pool_size: 1,
-         name: client_name}
+         transport_options: [
+           socket_path: socket_path,
+           pool_size: 1
+         ]}
       )
 
       metric = %Telegraf.Metric{
