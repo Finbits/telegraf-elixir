@@ -2,7 +2,7 @@ defmodule Telegraf.MixProject do
   use Mix.Project
 
   @name "Telegraf"
-  @version "0.0.1-dev"
+  @version "0.1.0"
   @description "Send metrics to telegraf"
   @repo_url "https://github.com/Finbits/telegraf-elixir"
 
