@@ -1,11 +1,11 @@
 defmodule Telegraf do
   use Supervisor
 
-  @moduledoc """
-  Telegraf client.
-
-  Checkout `send/3` for more detailed usage.
-  """
+  @external_resource "README.md"
+  @moduledoc "README.md"
+             |> File.read!()
+             |> String.split("<!-- MDOC !-->")
+             |> Enum.fetch!(1)
 
   @typedoc "Name of the telegraf instance."
   @type name :: atom()
@@ -65,17 +65,6 @@ defmodule Telegraf do
 
   @doc """
   Sends a metric to the telegraf daemon
-
-  ## Usage
-
-  1. Add `Telegraf` to your supervision tree:
-
-
-  ```elixir
-  {Telegraf, name: MyTelegraf}
-  ```
-
-  2. Send the metric:
 
   ```elixir
   metric = %Telegraf.Metric{
