@@ -17,7 +17,7 @@ The package can be installed by adding `telegraf` to your list of dependencies i
 ```elixir
 def deps do
   [
-    {:telegraf, "~> 0.1.0"}
+    {:telegraf, "~> 0.1.1"}
   ]
 end
 ```
