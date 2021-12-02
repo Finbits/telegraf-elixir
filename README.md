@@ -5,7 +5,7 @@
 Telegraf client.
 
 [![Hex.pm Version](http://img.shields.io/hexpm/v/telegraf.svg?style=flat)](https://hex.pm/packages/telegraf)
-[![CI](https://github.com/finbits/telegraf/workflows/CI/badge.svg?branch=main)](https://github.com/thiamsantos/telegraf/actions?query=branch%3Amain)
+[![CI](https://github.com/Finbits/telegraf-elixir/workflows/CI/badge.svg?branch=main)](https://github.com/Finbits/telegraf-elixir/actions?query=branch%3Amain)
 [![Coverage Status](https://coveralls.io/repos/github/finbits/telegraf/badge.svg?branch=main)](https://coveralls.io/github/thiamsantos/telegraf?branch=main)
 
 [Checkout the documentation](https://hexdocs.pm/telegraf) for more information.
