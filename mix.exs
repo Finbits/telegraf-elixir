@@ -36,7 +36,7 @@ defmodule Telegraf.MixProject do
       {:nimble_options, "~> 0.4.0"},
 
       # dev/test
-      {:credo_naming, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:credo_naming, "~> 2.0", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:excoveralls, "~> 0.14", only: :test},
       {:ex_doc, "~> 0.24", only: :dev, runtime: false}
