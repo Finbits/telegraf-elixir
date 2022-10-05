@@ -6,7 +6,7 @@ defmodule TelegrafTest do
     test "missing name" do
       message =
         "invalid configuration given to Telegraf.start_link/1," <>
-          " required option :name not found, received options: []"
+          " required :name option not found, received options: []"
 
       assert_raise ArgumentError, message, fn ->
         Telegraf.start_link([])
@@ -16,7 +16,7 @@ defmodule TelegrafTest do
     test "invalid serializer" do
       message =
         "invalid configuration given to Telegraf.start_link/1," <>
-          " expected :serializer to be an atom, got: \"invalid\""
+          " invalid value for :serializer option: expected atom, got: \"invalid\""
 
       assert_raise ArgumentError, message, fn ->
         Telegraf.start_link(name: MyTelegraf, serializer: "invalid")
@@ -26,7 +26,7 @@ defmodule TelegrafTest do
     test "invalid transport" do
       message =
         "invalid configuration given to Telegraf.start_link/1," <>
-          " expected :transport to be an atom, got: \"invalid\""
+          " invalid value for :transport option: expected atom, got: \"invalid\""
 
       assert_raise ArgumentError, message, fn ->
         Telegraf.start_link(name: MyTelegraf, transport: "invalid")
