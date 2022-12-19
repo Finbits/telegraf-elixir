@@ -17,20 +17,20 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - elixir: 1.7.4
-            otp: 21.3.8.17
-          - elixir: 1.8.2
-            otp: 21.3.8.17
-          - elixir: 1.9.4
-            otp: 21.3.8.17
-          - elixir: 1.10.4
-            otp: 21.3.8.17
-          - elixir: 1.11.2
-            otp: 21.3.8.17
-          - elixir: 1.11.2
-            otp: 23.0.3
-          - elixir: 1.12.1
-            otp: 24.0.1
+          - elixir: '1.7.x'
+            otp: '21.x'
+          - elixir: '1.8.x'
+            otp: '21.x'
+          - elixir: '1.9.x'
+            otp: '21.x'
+          - elixir: '1.10.x'
+            otp: '21.x'
+          - elixir: '1.11.x'
+            otp: '21.x'
+          - elixir: '1.11.x'
+            otp: '23.x'
+          - elixir: '1.12.x'
+            otp: '24.x'
             check_formatted: true
             warnings_as_errors: true
             check_unused_deps: true
@@ -38,10 +38,11 @@ jobs:
             credo: true
     steps:
       - uses: actions/checkout@v2
-      - uses: erlef/setup-elixir@v1
+      - uses: erlef/setup-beam@v1
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
+          version-type: loose
 
       - name: Install Dependencies
         run: |
