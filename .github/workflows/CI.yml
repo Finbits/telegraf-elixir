@@ -42,7 +42,7 @@ jobs:
         with:
           otp-version: ${{matrix.otp}}
           elixir-version: ${{matrix.elixir}}
-          version-type: loose
+          version-type: strict
 
       - name: Install Dependencies
         run: |
