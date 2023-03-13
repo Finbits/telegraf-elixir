@@ -33,7 +33,7 @@ defmodule Telegraf.MixProject do
   defp deps do
     [
       {:nimble_pool, "~> 0.2"},
-      {:nimble_options, "~> 0.5.0"},
+      {:nimble_options, "~> 1.0.1"},
 
       # dev/test
       {:credo_naming, "~> 2.0", only: [:dev, :test], runtime: false},
