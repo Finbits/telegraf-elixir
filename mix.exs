@@ -32,7 +32,7 @@ defmodule Telegraf.MixProject do
 
   defp deps do
     [
-      {:nimble_pool, "~> 0.2"},
+      {:nimble_pool, "~> 1.0"},
       {:nimble_options, "~> 1.0.1"},
 
       # dev/test
